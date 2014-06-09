@@ -1,6 +1,6 @@
 import csv
-#category 1: Chinese , 2:German , 3:Italian , 4:Japanese , 5: Spanish , 6: Thai
-
+#category 0: Chinese , 1:German , 2:Italian , 3:Japanese , 4: Spanish , 5: Thai
+#you need to modify line22 37 38 56
 def search(name, food_data):
     number=-1
     for i in range(0,len(food_data)):
@@ -34,16 +34,26 @@ for i in range(0,len(recipe_data)):
     recipe_data[i].sort()
 
 
+count = 11889
+str_ac = "CLASS=5 "
+str_total = ""
+length = len(food_data)
 
-str_svm = "6 "
 for i in range(0,len(recipe_data)):
+    food_list = [0] * length
     for j in range(0,len(recipe_data[i])):
-        str_svm += str(search(recipe_data[i][j],food_data)) + ":" + "1"+ " "
-    if( i == len(recipe_data)-1 ):
-        str_svm += "\n" 
-    else:
-        str_svm += "\n" + "6 "
-    
+        food_list[search(recipe_data[i][j],food_data)] = 1       
+        #str_svm += str(search(recipe_data[i][j],food_data)) + ":" + "1"+ " "
+        
+    str_total += str(count) + " " + str_ac
+    for k in range(0,length):
+        str_total += "w[" + str(k) + "]=" + str(food_list[k]) + " "
+
+    count = count + 1
+    str_total += "\n"
+    print "recipe",i,"done"
+
 fp = open('Thai','w')
-fp.write(str_svm)
+fp.write(str_total)
 fp.close()
+    
