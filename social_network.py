@@ -1,7 +1,7 @@
 import itertools
 import csv
 import networkx as nx
-
+import pickle
 #load Chinese
 f = open('Chinese_re.csv','r')
 recipe_data_ch = list()
@@ -118,3 +118,7 @@ for i in range(0,len(edge_data)):
     G.add_edge(edge_data[i][0],edge_data[i][1],weight=count[i])
     
 print len(G.edges())
+
+pickle.dump(G,open('network_data.txt','w'))
+
+
